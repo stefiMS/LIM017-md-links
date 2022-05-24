@@ -14,6 +14,7 @@
 //     console.log(`error: ${error}`);
 //   }
 // });
+import { error } from "console";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -29,29 +30,72 @@ const determineDirectory = (routePath) => fs.statSync(routePath).isDirectory();
 const readDirectory = (routePath) => fs.readdirSync(routePath);
 const fileExtension = (routePath) => path.extname(routePath)
 
+// const getOnlyFilesMD = (routePath) => {
+//   let arrayRouteFile = [];
+//   const routeAbs = convertAbsolutePath(routePath);
+//   if (determineDirectory(routeAbs)){
+//       const arrayDirectory = readDirectory(routeAbs)
+//       arrayDirectory.forEach((el) => {
+//           const newRoute = path.join(routeAbs, el)
+//           if(determineFile(newRoute)){
+//             fileExtension(newRoute) === '.md' ? arrayRouteFile.push(newRoute) : console.log('No es un archivo MD')
+//           } else {
+//             arrayRouteFile = arrayRouteFile.concat(getOnlyFilesMD(newRoute));
+//           }
+//        })
+//   }else{
+//     fileExtension(routeAbs) === '.md' ? arrayRouteFile.push(routeAbs) : console.log('No es un archivo MD')
+//   }
+//   return arrayRouteFile
+// }
+//new version
 const getOnlyFilesMD = (routePath) => {
   let arrayRouteFile = [];
   const routeAbs = convertAbsolutePath(routePath);
-  if (determineDirectory(routeAbs/*routePath*/)){
-      const arrayDirectory = readDirectory(routeAbs/*routePath*/)
+  if(determineFile(routeAbs)){
+    if(fileExtension(routeAbs) === '.md'){
+       arrayRouteFile.push(routeAbs)
+    }
+  } else{
+      const arrayDirectory = readDirectory(routeAbs)
       arrayDirectory.forEach((el) => {
-          const newRoute = path.join(routeAbs/*routePath*/, el)
-          if(determineFile(newRoute)){
-            fileExtension(newRoute) === '.md' ? arrayRouteFile.push(newRoute) : console.log('No es un archivo MD')
-          } else {
+          const newRoute = path.join(routeAbs, el)
             arrayRouteFile = arrayRouteFile.concat(getOnlyFilesMD(newRoute));
-          }
        })
-  }else{
-    fileExtension(routeAbs/*routePath*/) === '.md' ? arrayRouteFile.push(routeAbs/*routePath*/) : console.log('No es un archivo MD')
   }
   return arrayRouteFile
 }
 
+// //Obtención links
+const getLinks = (file) =>{
+    let arrayLinkObject =[]
+    const readFileLinks = readFiles(file);
+    const regExpLinks = /\[([^\[]+)\](\(.*\))/gm;
+    const matches = readFileLinks.match(regExpLinks);
+    if(matches!==null){
+      const rexExpSingle =/\[([^\[]+)\](\(.*\))/;
+      matches.forEach((link) => {
+        const match = rexExpSingle.exec(link)
+        arrayLinkObject.push({
+          href: match[2],
+          text: match[1].substring(0, 50),
+          file,
+        })
+      })
+    }
+  return arrayLinkObject
+}
+
+
+
+
+
+
+
 // //ejemplo de ruta
-// const route = 'prueba/file1.md'
-const route='prueba'
-//  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/prueba.md'
+// const route = 'src'
+// const route='C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/README.md'
+//  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba'
 // console.log(routeExists(route))
 // console.log(absolutePath(route))
 // console.log(convertAbsolute(route))
@@ -60,8 +104,9 @@ const route='prueba'
 // console.log(determineDirectory(route))
 // console.log(readDirectory(route))
 // console.log(fileExtension(route))
-console.log(getOnlyFilesMD(route))
-
+// console.log(getOnlyFilesMD(route))
+// console.log(getLinks(route))
+// console.log(process.argv)
 export {routeExists,
         absolutePath,
         convertAbsolutePath,
@@ -70,53 +115,5 @@ export {routeExists,
         determineDirectory,
         readDirectory,
         fileExtension,
-        getOnlyFilesMD }
-
-
-      //   export const getRouteWithPath = (pathRoute) => {
-      //     let arrayPaths = [];
-      //     // pathRoute is directory
-      //     if(isDirectory(pathRoute)) {
-      //     const arrayPathsDirectory = readDirectory(pathRoute)
-      //     arrayPathsDirectory.forEach((element) => {
-      //         const arrayArchives = getRouteWithPath(element)
-      //         // Uniendo array
-      //         arrayPaths.push(...arrayArchives)
-      //     });
-      //     } else {
-      //          console.log('Hola')
-      //     }
-      //     return arrayPaths
-      // }
-
-
-    //   export const getRouteFileAndDirectory = (pathRoute) => {
-    //     let arrayPaths = [];
-    //     // pathRoute is file
-    //     if(isFile(pathRoute)){
-    //         pullExtension(pathRoute) === '.md' ? arrayPaths.push(pathRoute) : console.log('No es un archivo MD')
-    //     } else if (isDirectory(pathRoute)){
-    //         //pathRoute is directory
-    //         const arrayPathsDirectory = readDirectory(pathRoute)
-    //         arrayPathsDirectory.forEach((element) => {
-    //           pullExtension(element) === '.md' ? arrayPaths.push(pathRoute) : console.log('No es un archivo/directorio MD')
-    //         })
-    //     };
-    //     return arrayPaths
-    // }
-    // export const getRouteDirectory = (pathRoute) => {
-    //     let arrayPaths = [];
-    //     if (isDirectory(pathRoute)){
-    //         const arrayPathsDirectory = readDirectory(pathRoute)
-    //         arrayPathsDirectory.forEach((element) => {
-    //             const routes = path.join(pathRoute, element)
-    //             if(isFile(routes)){
-    //                 pullExtension(routes) === '.md' ? arrayPaths.push(routes) : console.log('No es un archivo MD')
-    //             } else {
-    //                 arrayPaths = arrayPaths.concat(getRouteFileAndDirectory(routes));
-    //             }
-    //          })
-    //     };
-    //     return arrayPaths
-    // }
-
+        getOnlyFilesMD,
+        getLinks }
