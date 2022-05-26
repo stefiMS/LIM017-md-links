@@ -1,22 +1,7 @@
-
-// fs.writeFile("api.js", "holamundo", (error) => {
-//   if (error) {
-//     console.log(`error: ${error}`);
-//   }
-// });
-// fs.writeFile("cli.js", "holamundo", (error) => {
-//   if (error) {
-//     console.log(`error: ${error}`);
-//   }
-// });
-// fs.writeFile("mdlinks.js", "holamundo", (error) => {
-//   if (error) {
-//     console.log(`error: ${error}`);
-//   }
-// });
-import { error } from "console";
 import * as fs from "fs";
 import * as path from "path";
+import fetch from "node-fetch";
+
 
 const routeExists = (routePath) => fs.existsSync(routePath);
 // console.log('ruta');
@@ -30,25 +15,7 @@ const determineDirectory = (routePath) => fs.statSync(routePath).isDirectory();
 const readDirectory = (routePath) => fs.readdirSync(routePath);
 const fileExtension = (routePath) => path.extname(routePath)
 
-// const getOnlyFilesMD = (routePath) => {
-//   let arrayRouteFile = [];
-//   const routeAbs = convertAbsolutePath(routePath);
-//   if (determineDirectory(routeAbs)){
-//       const arrayDirectory = readDirectory(routeAbs)
-//       arrayDirectory.forEach((el) => {
-//           const newRoute = path.join(routeAbs, el)
-//           if(determineFile(newRoute)){
-//             fileExtension(newRoute) === '.md' ? arrayRouteFile.push(newRoute) : console.log('No es un archivo MD')
-//           } else {
-//             arrayRouteFile = arrayRouteFile.concat(getOnlyFilesMD(newRoute));
-//           }
-//        })
-//   }else{
-//     fileExtension(routeAbs) === '.md' ? arrayRouteFile.push(routeAbs) : console.log('No es un archivo MD')
-//   }
-//   return arrayRouteFile
-// }
-//new version
+//Obtención de array de files md
 const getOnlyFilesMD = (routePath) => {
   let arrayRouteFile = [];
   const routeAbs = convertAbsolutePath(routePath);
@@ -70,10 +37,13 @@ const getOnlyFilesMD = (routePath) => {
 const getLinks = (file) =>{
     let arrayLinkObject =[]
     const readFileLinks = readFiles(file);
-    const regExpLinks = /\[([^\[]+)\](\(.*\))/gm;
+    // const regExpLinks = /\[([^\[]+)\](\(.*\))/gm;
+    const regExpLinks = /\[([^\[]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#&_%~,.:-]+)\)/gm
+
     const matches = readFileLinks.match(regExpLinks);
     if(matches!==null){
-      const rexExpSingle =/\[([^\[]+)\](\(.*\))/;
+      // const rexExpSingle =/\[([^\[]+)\](\(.*\))/;
+      const rexExpSingle =/\[([^\[]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#&_%~,.:-]+)\)/
       matches.forEach((link) => {
         const match = rexExpSingle.exec(link)
         arrayLinkObject.push({
@@ -86,6 +56,48 @@ const getLinks = (file) =>{
   return arrayLinkObject
 }
 
+const validateLinks = (arrayOb) =>{
+  // let arrayValidateLinks =[];
+  // return arrayValidateLinks;
+  const arrayValidateLinks = arrayOb.map( element => {
+    // return Promise.all( arrayOb.map( (element) => {
+    // console.log('hola1')
+     fetch(element.href)
+    .then((res)=>{
+      if (res.status >= 200 && res.status <= 399) {
+        // console.log('hola3')
+        element.status = res.status,
+        element.message = ' OK '
+        return element
+      }else if(400<res.status){
+        // console.log('hola4')
+        element.status = response.status,
+        element.message = ' FAIL '
+        return element
+      }
+    })
+    // .catch((error)=>{
+    //   console.log('no está validado')
+    // })
+    console.log('hola5')
+  })
+    // )
+  // console.log(arrayValidateLinks)
+  // return arrayValidateLinks
+}
+
+// const checkStatus = response => {
+// 	if (response.ok) {
+// 		// response.status >= 200 && response.status < 300
+// 		return response;
+// 	} else {
+// 		throw new HTTPResponseError(response);
+// 	}
+// }
+
+// fetch('https://docs.npmjs.com/cli/install')
+// // .then(promesafetch => promesafetch.json())
+// .then(contenido => console.log(contenido))
 
 
 
@@ -96,6 +108,8 @@ const getLinks = (file) =>{
 // const route = 'src'
 // const route='C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/README.md'
 //  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba'
+const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file4.md'
+// const route = 'C:\Users\vladimir\Desktop\Stefani\LABORATORIA\LIM017-md-links\prueba\file1.md'
 // console.log(routeExists(route))
 // console.log(absolutePath(route))
 // console.log(convertAbsolute(route))
@@ -105,8 +119,11 @@ const getLinks = (file) =>{
 // console.log(readDirectory(route))
 // console.log(fileExtension(route))
 // console.log(getOnlyFilesMD(route))
-// console.log(getLinks(route))
+console.log(getLinks(route))
+// console.log(getOnlyFilesMD(getLinks(route)))
+// console.log(validateLinks(route))
 // console.log(process.argv)
+// console.log(validateLinks(route))
 export {routeExists,
         absolutePath,
         convertAbsolutePath,
@@ -116,4 +133,31 @@ export {routeExists,
         readDirectory,
         fileExtension,
         getOnlyFilesMD,
-        getLinks }
+        getLinks,
+        validateLinks }
+
+        //pasos
+        // 1. Declarar function
+        // 2. declarrar constante de array [];
+        // 3 if else
+        // 4. dentro del if crear el validate == true
+        //     -dentro se genera una condicional (if-else) dentro de las condicionales ( colocar los rangos de status)
+        //      a(condicion cuando el status es ok-ondicar rango aceptable)
+        //        array.push(const y={
+        //          href
+        //          status
+        //          h
+        //          mje:ok
+        //        }
+        //       b(condicion cuando el status este por encima y no es aceptable)
+        //       array push
+        //       href
+        //          status
+        //          h
+        //          mje:fail
+        //        }
+
+        //   else{
+        //     getlinks()
+        //   }
+        //   rerun array
