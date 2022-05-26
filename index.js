@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
 
 
 const routeExists = (routePath) => fs.existsSync(routePath);
@@ -108,7 +108,7 @@ const validateLinks = (arrayOb) =>{
 // const route = 'src'
 // const route='C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/README.md'
 //  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba'
-const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file4.md'
+// const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/carpetaPrueba/file4.md'
 // const route = 'C:\Users\vladimir\Desktop\Stefani\LABORATORIA\LIM017-md-links\prueba\file1.md'
 // console.log(routeExists(route))
 // console.log(absolutePath(route))
@@ -119,7 +119,7 @@ const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/pru
 // console.log(readDirectory(route))
 // console.log(fileExtension(route))
 // console.log(getOnlyFilesMD(route))
-console.log(getLinks(route))
+// console.log(getLinks(route))
 // console.log(getOnlyFilesMD(getLinks(route)))
 // console.log(validateLinks(route))
 // console.log(process.argv)
@@ -135,29 +135,3 @@ export {routeExists,
         getOnlyFilesMD,
         getLinks,
         validateLinks }
-
-        //pasos
-        // 1. Declarar function
-        // 2. declarrar constante de array [];
-        // 3 if else
-        // 4. dentro del if crear el validate == true
-        //     -dentro se genera una condicional (if-else) dentro de las condicionales ( colocar los rangos de status)
-        //      a(condicion cuando el status es ok-ondicar rango aceptable)
-        //        array.push(const y={
-        //          href
-        //          status
-        //          h
-        //          mje:ok
-        //        }
-        //       b(condicion cuando el status este por encima y no es aceptable)
-        //       array push
-        //       href
-        //          status
-        //          h
-        //          mje:fail
-        //        }
-
-        //   else{
-        //     getlinks()
-        //   }
-        //   rerun array

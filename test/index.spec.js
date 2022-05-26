@@ -97,24 +97,24 @@ describe('getOnlyFilesMD', ()=>{
 
 //Función getLinks (Array de objetos)
 describe('getLinks', ()=>{
-  // it('should return an empty array',()=>{
-
-  //   expect(getLinks(isntFileMd)).toEqual([]);
-  // })
+  it('should return an empty array',()=>{
+    expect(getLinks(routeAbsolute)).toEqual([]);
+  })
   it('should return array with links http ',()=>{
-    // const routeFile = ''
+
+    const routeFileMd = 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md'
     const arrayObj = [
       {
         href: 'https://docs.npmjs.com/cli/install',
         text: 'docs oficiales de `npm install` acá',
-        file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/README.md'
+        file: 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md'
       },
       {
         href: 'https://github.com/Laboratoria/course-parser',
         text: '`course-parser`',
-        file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/README.md'
+        file: 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md'
       },
     ];
-    expect(getLinks(arrayAbs)).toEqual(arrayObj)
+    expect(getLinks(routeFileMd)).toEqual(arrayObj)
   })
 })
