@@ -7,7 +7,8 @@ determineDirectory,
 readDirectory,
 fileExtension,
 getOnlyFilesMD,
-getLinks} from '../index.js';
+getLinks} from '../../src/api.js';
+
 
 const routeAbsolute = 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\prueba.md';
 const routeRelative = 'prueba/prueba.md';
@@ -118,3 +119,4 @@ describe('getLinks', ()=>{
     expect(getLinks(routeFileMd)).toEqual(arrayObj)
   })
 })
+
