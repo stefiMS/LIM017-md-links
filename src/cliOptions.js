@@ -96,8 +96,6 @@ const printLinks = (arrayObjLinks) => {
 
 
 
-
-
 export {
   printStats,
   printStatsandValidate,
