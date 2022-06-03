@@ -30,6 +30,10 @@
   ],
   "author": "stefi-MS",
   "license": "ISC",
+  "bin":{
+    "mdLinks":"src/cli.js"
+  },
+
   "bugs": {
     "url": "https://github.com/stefiMS/LIM017-md-links/issues"
   },

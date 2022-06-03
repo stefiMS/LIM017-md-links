@@ -3,7 +3,6 @@ import { routeExists,
   convertAbsolutePath,
   readFiles,
 determineFile,
-determineDirectory,
 readDirectory,
 fileExtension,
 getOnlyFilesMD,
@@ -16,6 +15,10 @@ const fileRoute = 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md
 const arrayFile = ['carpetaPrueba', 'file1.md', 'file2.html', 'file3.js', 'prueba.md'];
 const arrayAbs = [
   'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\carpetaPrueba\\file4.md',
+  'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\carpetaPrueba\\file6.md',
+  'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\carpetaPrueba\\file7.md',
+  'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\carpetaPrueba\\file8.md',
+  'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\carpetaPrueba\\subCarpeta\\file.md',
   'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md',
   'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\prueba.md'
 ]
@@ -59,19 +62,6 @@ describe('determineFile',() =>{
   })
 })
 
-//test determineDirectory function
-describe('determineDirectory',() =>{
-  it('should be a directory', ()=>{
-    expect(typeof determineDirectory(routeAbsolute)).toBe('boolean');
-  })
-  it('should be a directory',()=>{
-    expect(determineDirectory(fileRoute)).toEqual(true);
-  })
-  it('should not be a directory',()=>{
-    expect(determineDirectory(routeRelative)).toEqual(false);
-  })
-})
-
 //test readDirectory function
 describe('readDirectory',()=>{
   it('should show the content of a directory',() =>{
@@ -99,23 +89,30 @@ describe('getOnlyFilesMD', ()=>{
 //Función getLinks (Array de objetos)
 describe('getLinks', ()=>{
   it('should return an empty array',()=>{
-    expect(getLinks(routeAbsolute)).toEqual([]);
+    const arrNotLinks = ['C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\carpetaPrueba\\file6.md']
+    expect(getLinks(arrNotLinks)).toEqual([]);
   })
   it('should return array with links http ',()=>{
 
-    const routeFileMd = 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md'
+    const routeFileMd = ['C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md',
+    'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/carpetaPrueba/file4.md']
     const arrayObj = [
       {
         href: 'https://docs.npmjs.com/cli/install',
         text: 'docs oficiales de `npm install` acá',
-        file: 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md'
+        file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md'
       },
       {
         href: 'https://github.com/Laboratoria/course-parser',
         text: '`course-parser`',
-        file: 'C:\\Users\\vladimir\\Desktop\\Stefani\\LABORATORIA\\LIM017-md-links\\prueba\\file1.md'
+        file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md'
       },
-    ];
+      {
+        href: 'https://www.youtube.com/watch?v=Lub5qOmY4JQ',
+        text: 'recurso',
+        file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/carpetaPrueba/file4.md'
+      }
+    ]
     expect(getLinks(routeFileMd)).toEqual(arrayObj)
   })
 })

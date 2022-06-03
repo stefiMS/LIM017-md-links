@@ -45,13 +45,11 @@ describe('validateLinks  is a function', () => {
         message: 'FAIL'
       },
     ];
-    // fetch.mockImplementation(() => Promise.resolve({ message:"fail",status: 404}))
-    fetch.mockImplementation(() =>{
+    fetch.mockImplementation(() => Promise.resolve({ message:"fail",status: 404}))
     return  validateLinks(recieveObjectFail)
     .then((result) => {
       expect(result).toEqual(resultObjectFail);
-      expect(result).toEqual(resultObject);
-    })})
+    })
   });
   test("status: 500 - message: 'FAIL'", () => {
     const recieveObjectError = [
@@ -70,7 +68,7 @@ describe('validateLinks  is a function', () => {
         message: "FAIL",
       },
     ];
-    fetch.mockRejectedValue("Mensaje de error")
+    fetch.mockRejectedValue()
     return  validateLinks(recieveObjectError)
     .catch((result) => {
       expect(result).toEqual(resultObjectError);

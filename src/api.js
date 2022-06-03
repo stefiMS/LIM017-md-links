@@ -5,14 +5,10 @@ import * as path from "path";
 
 
 const routeExists = (routePath) => fs.existsSync(routePath);
-// console.log('ruta');
 const absolutePath = (routePath) => path.isAbsolute(routePath);
-// console.log('prueba');
 const convertAbsolutePath = (routePath) => (absolutePath(routePath) ? routePath : path.resolve(routePath));
-// console.log('prueba');
 const readFiles = (routePath) =>  fs.readFileSync(routePath, 'utf-8');
 const determineFile = (routePath) => fs.statSync(routePath).isFile();
-const determineDirectory = (routePath) => fs.statSync(routePath).isDirectory();
 const readDirectory = (routePath) => fs.readdirSync(routePath);
 const fileExtension = (routePath) => path.extname(routePath)
 
@@ -34,23 +30,25 @@ const getOnlyFilesMD = (routePath) => {
   return arrayRouteFile
 }
 
-// //Obtención links
-const getLinks = (file) =>{
-    let arrayLinkObject =[]
-    const readFileLinks = readFiles(file);
-    const regExpLinks = /\[([^\[]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#&_%~,.:-]+)\)/gm
-    const matches = readFileLinks.match(regExpLinks);
-    if(matches!==null){
-      const rexExpSingle =/\[([^\[]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#&_%~,.:-]+)\)/
-      matches.forEach((link) => {
-        const match = rexExpSingle.exec(link)
-        arrayLinkObject.push({
-          href: match[2],
-          text: match[1].substring(0, 50),
-          file,
+// Obtención de  array de objetos desde un array de archivos md.
+const getLinks = (fileArr) =>{
+    let arrayLinkObject =[];
+    fileArr.forEach((file) => {
+      const readFileLinks = readFiles(file);
+      const regExpLinks = /\[([^\[]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#&_%~,.:-]+)\)/gm
+      const matches = readFileLinks.match(regExpLinks);
+      if(matches!==null){
+        const rexExpSingle =/\[([^\[]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#&_%~,.:-]+)\)/
+        matches.forEach((link) => {
+          const match = rexExpSingle.exec(link)
+          arrayLinkObject.push({
+            href: match[2],
+            text: match[1].substring(0, 50),
+            file,
+          })
         })
-      })
-    }
+      }
+  })
   return arrayLinkObject
 }
 
@@ -65,8 +63,11 @@ const getLinks = (file) =>{
 
 
 // //ejemplo de ruta
-// const route = 'src'
-
+// // const route = 'src'
+// const route =[
+//   'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md',
+//   'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/carpetaPrueba/file4.md'
+// ]
 //  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba'
 // const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/carpetaPrueba/file4.md'
 // const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md'
@@ -82,6 +83,7 @@ const getLinks = (file) =>{
 //     file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md'
 //   }
 // ]
+// const route = 'C:\Users\vladimir\Desktop\Stefani\LABORATORIA\LIM017-md-links\README.md'
 // console.log(routeExists(route))
 // console.log(absolutePath(route))
 // console.log(convertAbsolute(route))
@@ -108,7 +110,6 @@ export {routeExists,
         convertAbsolutePath,
         readFiles,
         determineFile,
-        determineDirectory,
         readDirectory,
         fileExtension,
         getOnlyFilesMD,

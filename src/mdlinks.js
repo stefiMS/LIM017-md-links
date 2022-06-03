@@ -3,49 +3,35 @@ import {routeExists,
   getLinks} from './api.js'
   import { validateLinks } from './validate.js'
 
-  // const mdLinks = (path, options) => {
-  //   const allLinks = new Promise((resolve, reject) => {
-  //     // if(routeExists(path)){
-  //       routeExists(path)? resolve(getOnlyFilesMD(path)) :reject('La ruta ingresada no existe')
-  //       // getOnlyFilesMD(path)? resolve(getLinks(path)):
-  //         // if(getOnlyFilesMD(path)){
-  //         //   resolve(getLinks(path))
-  //         // }else{
-  //         //     reject('La ruta no tiene archivos MD')
-  //         // }
-  //       // }else{
-  //       //     reject('La ruta ingresada no existe')
-  //       // }
-  //     if(options.validate===true){
-  //       validateLinks(getLinks(path)).then((res)=>{
-  //           resolve(res)
-  //       })
-  //     }
-  //   })
-  //   return allLinks
-  // }
-
-  const mdLinks = (path, options) => {
-      const allLinks = new Promise((resolve, reject) => {
+  export  const mdLinks = (path, options) => {
+      return new Promise((resolve, reject) => {
         if(routeExists(path)){
           const arrayFile = getOnlyFilesMD(path);
-          if(arrayFile.length){
-              if(options.validate){
-                resolve(validateLinks(getLinks(arrayFile)))
-              }else{
-                resolve(getLinks(arrayFile))
+          if(arrayFile.length>0){
+              const arrayObj = getLinks(arrayFile)
+              if(arrayObj.length>0){
+                  if(options.validate){
+                    resolve(validateLinks(arrayObj))
+                  }else{
+                    resolve(arrayObj)
+                  }
+              } else{
+                reject('El archivo md no tiene links')
               }
             }else{
-              reject(new Error('La ruta no tiene archivos MD'))
+              reject('La ruta no tiene archivos MD')
             }
         }else{
-          reject(new Error('La ruta no existe'))
+          reject('La ruta ingresada no existe')
         }
-      })
-      return allLinks
-  }
+       })
+    }
 
 
- const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba'
 
-  mdLinks(route, {validate:true}).then((res)=>{ console.log(res)}).catch((err) => console.log(err))
+
+//  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba'
+// //  const route = 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/carpetaPrueba/file6.md'
+// const route = 'README.md'
+//   // mdLinks(route, {validate:false}).then((res)=>{ console.log(res)}).catch((err) => console.log(err))
+  // mdLinks(route, {validate:true}).then((res)=>{ console.log(res)}).catch((err) => console.log(err))

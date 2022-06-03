@@ -11,7 +11,8 @@ const validateLinks = (arrayOb) =>{
         element.status = res.status,
         element.message = 'OK'
         return element
-      }else if(400<= res.status){
+      }
+      else{
         element.status = res.status,
         element.message = 'FAIL'
         return element
