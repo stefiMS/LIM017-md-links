@@ -18,7 +18,8 @@ const printStatsandValidate = (arrayObjLinks) => {
   // const stats = `${printStats(arrayObjLinks)}\nBroken: ${brokenLinks.length}`
   const stats = `
         ${printStats(arrayObjLinks)}
-        ${chalk.redBright.inverse('Broken:')} ${brokenLinks.length}`;
+        ${chalk.bgRedBright('Broken:')} ${brokenLinks.length}`;
+        // ${chalk.redBright.inverse('Broken:')} ${brokenLinks.length}
   return stats;
 };
 
@@ -29,8 +30,7 @@ const printLinks = (arrayObjLinks) => {
         objThreeProperty += `
           ${chalk.bold.grey('LINK:')} ${chalk.cyan(element.href)}
           ${chalk.bold.grey('TEXT:')} ${chalk.magentaBright(element.text.substring(0, 50))}
-          ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}
-          `;
+          ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}`;
       });
     } else{
       return 'Not found links on that path';
@@ -45,15 +45,14 @@ const printLinks = (arrayObjLinks) => {
     }
     if (arrayObjLinks.length > 0) {
       arrayObjLinks.forEach((element) => {
-        const colors = element.message === ('ok'||'OK'||'Ok'||'oK' )? chalk.bold.green(element.message) : chalk.bold.red(element.message);
+        const colors = (element.message === 'ok'||element.message === 'OK'||element.message === 'Ok'||element.message === 'oK') ? chalk.bold.green(element.message) : chalk.bold.red(element.message);
+      //  console.log(colors)
         objFiveProperty += `
             ${chalk.bold.grey('LINK:')} ${chalk.cyan(element.href)}
             ${chalk.bold.grey('TEXT:')} ${chalk.magentaBright(element.text.substring(0, 50))}
             ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}
             ${chalk.bold.grey('STATUS:')} ${chalk.yellow(element.status)}
-            ${chalk.bold.grey('STATUS_MESSAGE:')} ${colors}
-
-          `;
+            ${chalk.bold.grey('STATUS_MESSAGE:')} ${colors}`;
       });
     }
     return objFiveProperty;
@@ -78,7 +77,7 @@ const printLinks = (arrayObjLinks) => {
 //     text: 'docs oficiales de `npm install` acá',
 //     file: 'C:/Users/vladimir/Desktop/Stefani/LABORATORIA/LIM017-md-links/prueba/file1.md',
 //     status: 200,
-//     message: "ok",
+//     message: "OK",
 //   },
 //   {
 //     href: 'https://github.com/Laboratoria/course-parser',
@@ -89,7 +88,7 @@ const printLinks = (arrayObjLinks) => {
 //   }
 // ]
 
-// console.log(printValidate(route))
+// // console.log(printValidate(route))
 // console.log(printStatsandValidate(route))
 // console.log(printStats(route))
 // console.log(printLinks(route))

@@ -1,15 +1,17 @@
-import {printStats, printStatsandValidate} from '../../src/cliOptions'
+import {printStats, printStatsandValidate, printLinks,
+  printValidate} from '../../src/cliOptions'
 // import chalk from 'chalk'
 
 jest.mock('chalk', () => ({
-   grey: jest.fn(() => 'grey' ),
+  //  grey: jest.fn(() => 'grey' ),
    cyan: jest.fn(() => 'cyan'),
    magentaBright: jest.fn(() => 'magentaBright'),
    green: jest.fn(() => 'green'),
    yellow: jest.fn(() => 'yellow'),
-   inverse: {
-    redBright:jest.fn(() =>'redBright'),
-   },
+   bgRedBright: jest.fn(() => 'bgRedBright'),
+  //  inverse: {
+  //   redBright:jest.fn(() =>'redBright'),
+  //  },
    bold:{
       green: jest.fn(()=> 'green'),
       red: jest.fn(()=> 'red'),
@@ -60,12 +62,60 @@ describe('printStats',()=>{
 
 describe('printStatsandValidate',()=>{
   it('should show the links stats (total, unique, broken) in md file ',()=>{
-    const printStatsVal = `
-        **********************
-          yellow : 3
-          yellow: 3
-          redBright: 2`;
-    // const printStatsVal = `Total: 3\nUnique: 3\nBroken: 2`;
-    expect(printStatsandValidate(arrayObj)).toEqual(printStatsVal)
+    const printStatsVal =`\n        \n      **********************
+        yellow 3
+        yellow 3
+        bgRedBright 2`;
+
+    // const printStatsVal = `
+    //   **********************
+//     //     yellow 3\n        yellow 3\n        bgRedBright 2`;
+
+//     // const printStatsVal = `Total: 3\nUnique: 3\nBroken: 2`;
+    expect(printStatsandValidate(arrayObj)).toBe(printStatsVal)
+  })
+})
+
+describe('printLinks', () => {
+  it('should print the information about links (href, text, file)', () =>{
+    const resultPrintLinks = `
+          grey cyan
+          grey magentaBright
+          grey green
+          grey cyan
+          grey magentaBright
+          grey green
+          grey cyan
+          grey magentaBright
+          grey green`
+    expect(printLinks(arrayObj)).toBe(resultPrintLinks)
+ })
+  it('Should message when the array is empty ',() =>{
+    expect(printLinks([])).toBe('Not found links on that path')
+ })
+})
+
+describe('printValidate', ()=>{
+  it('should print the information validated (href, text, file, status, message)', ()=>{
+    const resultPrintValidate =`
+            grey cyan
+            grey magentaBright
+            grey green
+            grey yellow
+            grey green
+            grey cyan
+            grey magentaBright
+            grey green
+            grey yellow
+            grey red
+            grey cyan
+            grey magentaBright
+            grey green
+            grey yellow
+            grey red`
+    expect(printValidate(arrayObj)).toBe(resultPrintValidate)
+  })
+  it('Should message when the array is empty ',() =>{
+    expect(printValidate([])).toBe('Not found links on that path')
   })
 })
