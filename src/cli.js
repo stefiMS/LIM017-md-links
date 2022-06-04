@@ -39,40 +39,33 @@ where:
 
 const optionsCLI = (path, options) => {
   if (options.length > 0) {
-    //caso 1: cuando mi opcion es validate
     if (options === '--validate'|| options ==='--v') {
       return mdLinks(path, { validate: true })
         .then((links) => printValidate(links))
     }
-   // caso 2: cuando mi opcion es stats
-    if (options === '--stats'|| options === '--s') {
+    else if (options === '--stats'|| options === '--s') {
       return mdLinks(path, { validate: true })
         .then((links) => printStats(links))
-        // .catch((err)=> console.log('No hay '))
     }
-// caso 3: cuando uso validate y stats
-    if (options === '--stats --validate' || options === '--validate --stats' || options === '--v --s' || options === '--s --v') {
+    else if (options === '--stats --validate' || options === '--validate --stats' || options === '--v --s' || options === '--s --v') {
       return mdLinks(path, { validate: true })
         .then((links) => printStatsandValidate(links))
-        // .catch((err)=> console.log('No hay links '))
     }
-    // if(options === '--help' || options === '--h'){
-    //   return Promise.resolve(help);
-    // }
     return Promise.resolve(help);
-
   }
   return mdLinks(path, { validate: false })
     .then((links) => printLinks(links))
-    // .catch((err)=> console.log('No hay links en esta ruta'))
-
 };
 
-// console.log(optionsCLI('prueba\\carpetaPrueba\\file7.md','--validate'))
 if (pathCLI=== undefined) {
  console.log(help);
 } else {
   optionsCLI(pathCLI, newInput)
     .then((response) => console.log(response))
-    .catch(() => console.log(chalk.rgb(255, 56, 20).inverse('ERROR'), '-- No se encontró esta ruta --'));
+    .catch((e) => console.log(chalk.rgb(255, 56, 20).inverse('ERROR'), chalk.bold.red(e)));
 }
+
+
+    // if(options === '--help' || options === '--h'){
+    //   return Promise.resolve(help);
+    // }

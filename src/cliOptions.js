@@ -7,9 +7,9 @@ const printStats = (arrayObjLinks) => {
   const setUniqueLinks = new Set(allLinks);
   // const stats = `Total: ${totalLinks}\nUnique: ${setUniqueLinks.size}`;
   const stats = `
-        ${chalk.rgb(252, 91, 96)('Total:')} ${totalLinks}
-        ${chalk.rgb(252, 91, 96)('Unique:')} ${setUniqueLinks.size}
-    `;
+      **********************
+        ${chalk.yellow('Total: ')} ${totalLinks}
+        ${chalk.yellow('Unique:')} ${setUniqueLinks.size}`;
   return stats;
 };
 
@@ -18,7 +18,7 @@ const printStatsandValidate = (arrayObjLinks) => {
   // const stats = `${printStats(arrayObjLinks)}\nBroken: ${brokenLinks.length}`
   const stats = `
         ${printStats(arrayObjLinks)}
-        ${chalk.rgb(252, 91, 96).inverse('Broken:')} ${brokenLinks.length}`;
+        ${chalk.redBright.inverse('Broken:')} ${brokenLinks.length}`;
   return stats;
 };
 
@@ -27,9 +27,9 @@ const printLinks = (arrayObjLinks) => {
     if (arrayObjLinks.length > 0) {
       arrayObjLinks.forEach((element) => {
         objThreeProperty += `
-          ${chalk.grey('LINK:')} ${element.href}
-          ${chalk.grey('TEXT:')} ${element.text.substring(0, 50)}
-          ${chalk.grey('PATH:')} ${element.file}
+          ${chalk.bold.grey('LINK:')} ${chalk.cyan(element.href)}
+          ${chalk.bold.grey('TEXT:')} ${chalk.magentaBright(element.text.substring(0, 50))}
+          ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}
           `;
       });
     } else{
@@ -47,11 +47,11 @@ const printLinks = (arrayObjLinks) => {
       arrayObjLinks.forEach((element) => {
         const colors = element.message === ('ok'||'OK'||'Ok'||'oK' )? chalk.bold.green(element.message) : chalk.bold.red(element.message);
         objFiveProperty += `
-            ${chalk.grey('LINK:')} ${element.href}
-            ${chalk.grey('TEXT:')} ${element.text.substring(0, 50)}
-            ${chalk.grey('PATH:')} ${element.file}
-            ${chalk.cyan('STATUS:')} ${element.status}
-            ${chalk.cyan('STATUS_MESSAGE:')} ${colors}
+            ${chalk.bold.grey('LINK:')} ${chalk.cyan(element.href)}
+            ${chalk.bold.grey('TEXT:')} ${chalk.magentaBright(element.text.substring(0, 50))}
+            ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}
+            ${chalk.bold.grey('STATUS:')} ${chalk.yellow(element.status)}
+            ${chalk.bold.grey('STATUS_MESSAGE:')} ${colors}
 
           `;
       });
