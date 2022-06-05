@@ -16,13 +16,13 @@ import {routeExists,
                     resolve(arrayObj)
                   }
               } else{
-                reject('El archivo md no tiene links')
+                reject('The md files have no links')
               }
             }else{
-              reject('La ruta no tiene archivos MD')
+              reject('The path entered has no MD files')
             }
         }else{
-          reject('La ruta ingresada no existe')
+          reject('The path entered does not exist')
         }
        })
     }

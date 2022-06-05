@@ -21,20 +21,25 @@ for (let i = 1; i < args.length; i ++) {
 const newInput = input.join(' ');
 
 const help = `
-============================================ HELP ==========================================
-You can enter the following options on the command line:
+${chalk.yellow.bold('================================================= HELP ===============================================')}
+${chalk.magentaBright('You can enter the following options on the command line:')}
 
-Option1: mdLinks <path-to-file>
-Option2: mdLinks <path-to-file> --validate || --v
-Option3: mdLinks <path-to-file> --stats || --s
-Option4: mdLinks <path-to-file> (--stats --validate || --validate --stats)
+${chalk.bgYellowBright(' Option1 ')}: mdLinks <path-to-file>
+${chalk.bgYellowBright(' Option2 ')}: mdLinks <path-to-file> --validate || --v
+${chalk.bgYellowBright(' Option3 ')}: mdLinks <path-to-file> --stats || --s
+${chalk.bgYellowBright(' Option4 ')}: mdLinks <path-to-file> --stats --validate || --validate --stats || --v --s || --s --v
 
-where:
-   --validate o --v : shows if the links found in the file work or not
-   --stats  o  --s : shows the general statistics (total and Unique) about the links found
-   --stats --validate || --validate --stats || --v --s || --s --v :
+${chalk.magentaBright.bold('where:')}
+${chalk.yellowBright('--validate o --v')} : ${chalk.greenBright('shows if the links found in the file work or not')}
+${chalk.yellowBright('--stats  o  --s')} : ${chalk.greenBright('shows the general statistics (total and Unique) about the links found')}
+${chalk.yellowBright('--stats --validate || --validate --stats || --v --s || --s --v')} : ${chalk.greenBright('show the statistics (total, unique)\n about the status of the links found and the total number of broken links.')}
 
-`;
+**When you enter ${chalk.redBright.bold('mdLinks <path-to-file>')} in the terminal, you will get information about the links\nfound from md files (href, text, file)**
+
+${chalk.bgMagenta(' Note ')}:
+     * If you need help enter the command in the terminal: ${chalk.redBright.bold('mdLinks')}
+     * Sometimes windows does not recognize the direction of the path separators, so it is advisable\n     to try if it recognizes the following situations: "/", "\\", "//", "\\\\".
+   `;
 
 
 const optionsCLI = (path, options) => {
@@ -62,7 +67,7 @@ if (pathCLI=== undefined) {
 } else {
   optionsCLI(pathCLI, newInput)
     .then((response) => console.log(response))
-    .catch((e) => console.log(chalk.rgb(255, 56, 20).inverse('ERROR'), chalk.bold.red(e)));
+    .catch((e) => console.log(chalk.red.inverse('ERROR'), chalk.bold.red(e)));
 }
 
 

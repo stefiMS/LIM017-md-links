@@ -79,19 +79,19 @@ describe('mdLinks', () => {
   test('should return a message there are not links', () =>{
     return mdLinks('prueba\\carpetaPrueba\\file6.md', {validate:true})
       .catch((err) =>{
-        expect(err).toBe('El archivo md no tiene links')
+        expect(err).toBe('The md files have no links')
       })
   })
   test('should return a message there are not files md', () =>{
     return mdLinks('src', {validate:true})
       .catch((err) =>{
-        expect(err).toBe('La ruta no tiene archivos MD')
+        expect(err).toBe('The path entered has no MD files')
       })
   })
   test('should return a message the path is not exist', () =>{
     return mdLinks('srci', {validate:true})
       .catch((err) =>{
-        expect(err).toBe('La ruta ingresada no existe')
+        expect(err).toBe('The path entered does not exist')
       })
   })
 });
