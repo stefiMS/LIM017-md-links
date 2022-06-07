@@ -2,6 +2,14 @@ import {mdLinks} from '../../src/mdlinks.js'
 import fetch from 'node-fetch';
 
 jest.mock('node-fetch');
+
+jest.mock('chalk', () => ({
+  bold:{
+    red: jest.fn(() => 'red'),
+    bgRed: jest.fn(() => 'bgRed'),
+},
+}))
+
 const arrayValidateTrue = [
   {
     href: 'https://docs.npmjs.com/cli/install',
@@ -79,19 +87,22 @@ describe('mdLinks', () => {
   test('should return a message there are not links', () =>{
     return mdLinks('prueba\\carpetaPrueba\\file6.md', {validate:true})
       .catch((err) =>{
-        expect(err).toBe('The md files have no links')
+        // expect(err).toBe('The md files have no links')
+        expect(err).toBe(`bgRedred`)
       })
   })
   test('should return a message there are not files md', () =>{
     return mdLinks('src', {validate:true})
       .catch((err) =>{
-        expect(err).toBe('The path entered has no MD files')
+        // expect(err).toBe('The path entered has no MD files')
+        expect(err).toBe(`bgRedred`)
       })
   })
   test('should return a message the path is not exist', () =>{
     return mdLinks('srci', {validate:true})
       .catch((err) =>{
-        expect(err).toBe('The path entered does not exist')
+        // expect(err).toBe('The path entered does not exist')
+        expect(err).toBe(`bgRedred`)
       })
   })
 });

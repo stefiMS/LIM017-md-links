@@ -2,6 +2,7 @@ import {routeExists,
   getOnlyFilesMD,
   getLinks} from './api.js'
   import { validateLinks } from './validate.js'
+import chalk from 'chalk'
 
   export  const mdLinks = (path, options) => {
       return new Promise((resolve, reject) => {
@@ -16,13 +17,15 @@ import {routeExists,
                     resolve(arrayObj)
                   }
               } else{
-                reject('The md files have no links')
+                // reject('The md files have no links')
+                reject(chalk.bold.bgRed(' ERROR: ') + chalk.bold.red(' The md files have no links'))
               }
             }else{
-              reject('The path entered has no MD files')
+              // reject('The path entered has no MD files')
+              reject(chalk.bold.bgRed(' ERROR: ') + chalk.bold.red(' The path entered has no MD files'))
             }
         }else{
-          reject('The path entered does not exist')
+          reject(chalk.bold.bgRed(' ERROR: ') + chalk.bold.red(' The path entered does not exist'))
         }
        })
     }

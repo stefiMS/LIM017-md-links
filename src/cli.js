@@ -6,12 +6,11 @@ import {  printStats,
   printStatsandValidate,
   printLinks,
   printValidate,} from "./cliOptions.js"
-import { convertAbsolutePath } from "./api.js";
+
 // capturo argumentos de la línea de comandos
 const [,, ...args] = process.argv;
 // const args = process.argv;
 
-// console.log(`holiss ${args}`)
 const pathCLI = args[0];
 const input = [];
 for (let i = 1; i < args.length; i ++) {
@@ -21,7 +20,7 @@ for (let i = 1; i < args.length; i ++) {
 const newInput = input.join(' ');
 
 const help = `
-${chalk.yellow.bold('================================================= HELP ===============================================')}
+${chalk.bold.yellow('================================================= HELP ===============================================')}
 ${chalk.magentaBright('You can enter the following options on the command line:')}
 
 ${chalk.bgYellowBright(' Option1 ')}: mdLinks <path-to-file>
@@ -29,17 +28,16 @@ ${chalk.bgYellowBright(' Option2 ')}: mdLinks <path-to-file> --validate || --v
 ${chalk.bgYellowBright(' Option3 ')}: mdLinks <path-to-file> --stats || --s
 ${chalk.bgYellowBright(' Option4 ')}: mdLinks <path-to-file> --stats --validate || --validate --stats || --v --s || --s --v
 
-${chalk.magentaBright.bold('where:')}
+${chalk.bold.magentaBright('where:')}
 ${chalk.yellowBright('--validate o --v')} : ${chalk.greenBright('shows if the links found in the file work or not')}
 ${chalk.yellowBright('--stats  o  --s')} : ${chalk.greenBright('shows the general statistics (total and Unique) about the links found')}
 ${chalk.yellowBright('--stats --validate || --validate --stats || --v --s || --s --v')} : ${chalk.greenBright('show the statistics (total, unique)\n about the status of the links found and the total number of broken links.')}
 
-**When you enter ${chalk.redBright.bold('mdLinks <path-to-file>')} in the terminal, you will get information about the links\nfound from md files (href, text, file)**
+**When you enter ${chalk.bold.redBright('mdLinks <path-to-file>')} in the terminal, you will get information about the links\nfound from md files (href, text, file)**
 
 ${chalk.bgMagenta(' Note ')}:
-     * If you need help enter the command in the terminal: ${chalk.redBright.bold('mdLinks')}
-     * Sometimes windows does not recognize the direction of the path separators, so it is advisable\n     to try if it recognizes the following situations: "/", "\\", "//", "\\\\".
-   `;
+     * If you need help enter the command in the terminal: ${chalk.bold.redBright('mdLinks')}
+     * Sometimes windows does not recognize the direction of the path separators, so it is advisable\n     to try if it recognizes the following situations: "/", "\\", "//", "\\\\".`;
 
 
 const optionsCLI = (path, options) => {
@@ -62,15 +60,18 @@ const optionsCLI = (path, options) => {
     .then((links) => printLinks(links))
 };
 
-if (pathCLI=== undefined) {
- console.log(help);
-} else {
-  optionsCLI(pathCLI, newInput)
-    .then((response) => console.log(response))
-    .catch((e) => console.log(chalk.red.inverse('ERROR'), chalk.bold.red(e)));
-}
+  if (pathCLI=== undefined) {
+   console.log(help);
+  } else {
+     optionsCLI(pathCLI, newInput)
+      .then((response) => console.log(response))
+      // .catch((e) => console.log(chalk.bold.bgRed(' ERROR '), chalk.bold.red(e)))
+      .catch((e) => console.log(e));
+  }
 
+export { optionsCLI}
 
-    // if(options === '--help' || options === '--h'){
-    //   return Promise.resolve(help);
-    // }
+    // // console.log(cliOptions('prueba\\carpetaPrueba\\file4.md','--v'))
+    // optionsCLI('prueba/carpetaPrueba/file6.md','--validate')
+    // .then((res)=>console.log(res))
+    // .catch((err) => console.log(chalk.bold.bgRed(' ERROR ') + chalk.bold.red(err)))
