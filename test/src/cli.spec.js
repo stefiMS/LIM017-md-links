@@ -33,7 +33,7 @@ describe('optionsCLI', () =>{
             grey magentaBright
             grey green
             grey yellow
-            grey green`
+            grey green\n`
     return optionsCLI('prueba/carpetaPrueba/file4.md','--validate')
     .then((res) =>{
       expect(res).toBe(resultValidate)
@@ -45,7 +45,7 @@ describe('optionsCLI', () =>{
             grey magentaBright
             grey green
             grey yellow
-            grey red`
+            grey red\n`
     return optionsCLI('prueba/carpetaPrueba/file8.md','--validate')
     .catch((err) =>{
       expect(err).toBe(resultValidate)
@@ -78,7 +78,7 @@ describe('optionsCLI', () =>{
     const resultValFalse = `
           grey cyan
           grey magentaBright
-          grey green`
+          grey green\n`
 
       return optionsCLI('prueba/carpetaPrueba/file4.md','')
         .then((res)=>{
