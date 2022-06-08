@@ -5,11 +5,11 @@ El Markdwon es un lenguaje de marcado ligero muy popular entre developers. Es us
 
 Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de la información que se quiere compartir.
 
-Por ello se ha implementado una herramienta usando Node.js,para que lea y analice archivos en formato `Markdown`, para verificar los links que contengan y reportar algunas estadísticas.
+Por ello se ha implementado una herramienta usando Node.js ([ingrese aquí](https://www.npmjs.com/package/md-links-stefi)), para que lea y analice archivos en formato `Markdown`, para verificar los links que contengan y reportar algunas estadísticas.
 
 ![portada.png](https://i.postimg.cc/KY4tqJxv/portada.png)
 
-## :pushpin: 2. Diagrama de Flujo :clipboard: 
+## :pushpin: 2. Diagrama de Flujo :clipboard:
 
 ### I. Diagrama API
 
@@ -24,12 +24,12 @@ Por ello se ha implementado una herramienta usando Node.js,para que lea y analic
 ## :pushpin: 3. Instrucciones de Instalación  de la librería MD :inbox_tray:
 
  ###  Interfaz de Línea de Comando (CLI)
- 
+
  #### A) Instalación
- 
- Para poder instalar el paquete de esta librería, debe ingresar el siguiente comando npm en su terminal: 
- 
-       linea de comando
+
+ Para poder instalar el paquete de esta librería, debe ingresar el siguiente comando npm en su terminal:
+
+       npm i md-links-stefi
 
 #### B) Ejecución del comando
 
@@ -47,7 +47,7 @@ Donde:
 ####  CASO 1 : Cuando " options =  --validate  o --v"
 
 Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP para averiguar si el link funciona o no. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok, caso contrario el mensaje que indicará sera fail.
-      
+
        mdLinks <path-to-file> --validate
 
 o
@@ -109,14 +109,14 @@ También podemos combinar `--stats` y `--validate` para obtener estadísticas qu
 
 
        mdLinks <path-to-file> --validate --stats
-       
+
        mdLinks <path-to-file> --stats --validate
 
 o
 
 
        mdLinks <path-to-file> --v --s
-       
+
        mdLinks <path-to-file> --v --s
 
 Ejemplo:
@@ -137,7 +137,7 @@ En el terminal:
 
 Cuando no hay options, también podemos ingresar el siguiente comando que nos brindará información sobre el href,  texto y file.
 
-        mdLinks <path-to-file> 
+        mdLinks <path-to-file>
 
 ejemplo:
 
