@@ -155,7 +155,12 @@ ejemplo:
 **De igual manera, se mostrará el HELP (ayuda) si ingresa un comando  de options erróneos o ajenos  a la librería.**
 
 
+### :rotating_light:  NOTA  :rotating_light:
 
+Cuando se ingrese rutas (path) incorrectas o que no poseen archivos md o links. Mostrará un mensaje de error, indicandole al usuario que los datos que ingreso en el terminal, no son correctos.
+
+
+![message-Error.png](https://i.postimg.cc/hjgRqS12/message-Error.png)
 
 
 
