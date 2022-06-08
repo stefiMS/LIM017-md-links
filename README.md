@@ -11,10 +11,21 @@ Por ello se ha implementado una herramienta usando Node.js,para que lea y analic
 
 ## :pushpin: 2. Diagrama de Flujo :clipboard: 
 
+### I. Diagrama API
+
+
+![Diagram-MD-LINKS-API-drawio.png](https://i.postimg.cc/rm8nyz0Y/Diagram-MD-LINKS-API-drawio.png)
+
+
+### II. Diagrama de Interfaz de Línea de Comando (CLI)
+
+
+![Diagram-MD-LINKS-CLI-drawio.png](https://i.postimg.cc/FzwVSKzv/Diagram-MD-LINKS-CLI-drawio.png)
+
 
 ## :pushpin: 3. Instrucciones de Instalación  de la librería MD :inbox_tray:
 
- ###  Comando de Interfaz de Línea de Comando (CLI)
+ ###  Interfaz de Línea de Comando (CLI)
  
  #### A) Instalación
  
