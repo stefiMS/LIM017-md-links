@@ -81,13 +81,13 @@ describe('printLinks', () => {
     const resultPrintLinks = `
           grey cyan
           grey magentaBright
-          grey green
+          grey green\n
           grey cyan
           grey magentaBright
-          grey green
+          grey green\n
           grey cyan
           grey magentaBright
-          grey green`
+          grey green\n`
     expect(printLinks(arrayObj)).toBe(resultPrintLinks)
  })
   it('Should message when the array is empty ',() =>{
@@ -102,17 +102,17 @@ describe('printValidate', ()=>{
             grey magentaBright
             grey green
             grey yellow
-            grey green
+            grey green\n
             grey cyan
             grey magentaBright
             grey green
             grey yellow
-            grey red
+            grey red\n
             grey cyan
             grey magentaBright
             grey green
             grey yellow
-            grey red`
+            grey red\n`
     expect(printValidate(arrayObj)).toBe(resultPrintValidate)
   })
   it('Should message when the array is empty ',() =>{

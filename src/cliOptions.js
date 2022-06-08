@@ -30,7 +30,7 @@ const printLinks = (arrayObjLinks) => {
         objThreeProperty += `
           ${chalk.bold.grey('LINK:')} ${chalk.cyan(element.href)}
           ${chalk.bold.grey('TEXT:')} ${chalk.magentaBright(element.text.substring(0, 50))}
-          ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}`;
+          ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}\n`;
       });
     } else{
       return 'Not found links on that path';
@@ -52,7 +52,7 @@ const printLinks = (arrayObjLinks) => {
             ${chalk.bold.grey('TEXT:')} ${chalk.magentaBright(element.text.substring(0, 50))}
             ${chalk.bold.grey('PATH:')} ${chalk.green(element.file)}
             ${chalk.bold.grey('STATUS:')} ${chalk.yellow(element.status)}
-            ${chalk.bold.grey('STATUS_MESSAGE:')} ${colors}`;
+            ${chalk.bold.grey('STATUS_MESSAGE:')} ${colors}\n`;
       });
     }
     return objFiveProperty;
