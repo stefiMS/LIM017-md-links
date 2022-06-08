@@ -35,7 +35,7 @@ Donde:
   - `validate`: Determina la validación de los links encontrados.
   - `stats`: Determina las estadisticas totales de los links encontrados.
 
-##### I. CASO 1): " options =  --validate or --v"
+####  CASO 1 : Cuando " options =  --validate  o --v"
 
 Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP para averiguar si el link funciona o no. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok, caso contrario el mensaje que indicará sera fail.
       
@@ -57,28 +57,60 @@ $ md-links ./some/example.md --validate
 ```
 
 Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de la URL, así como el status de la respuesta recibida a la petición HTTP a dicha URL.
+En el terminal:
 
 
+![validate-V.png](https://i.postimg.cc/4dQV2dms/validate-V.png)
+
+donde:
+
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+* `status`: Código de respuesta HTTP.
+* `message`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
 
 
+####  CASO 2 : Cuando " options =  --stats o --s "
+
+Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas básicas (total, unique) sobre los links.
+
+       mdLinks <path-to-file> --stats
+
+o
 
 
+       mdLinks <path-to-file> --s
 
-
-
-##### `--stats`
-
-Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas
-básicas sobre los links.
+Ejemplo:
 
 ```sh
 $ md-links ./some/example.md --stats
 Total: 3
 Unique: 3
 ```
+En el terminal:
 
-También podemos combinar `--stats` y `--validate` para obtener estadísticas que
-necesiten de los resultados de la validación.
+![stats.png](https://i.postimg.cc/s2RJTbwP/stats.png)
+
+
+####  CASO 3 : Cuando " options =  -- validate --stats  ||  --v --s   || --stats -- validate || --s --v  "
+
+También podemos combinar `--stats` y `--validate` para obtener estadísticas que necesiten de los resultados de la validación.
+
+
+       mdLinks <path-to-file> --validate --stats
+       
+       mdLinks <path-to-file> --stats --validate
+
+o
+
+
+       mdLinks <path-to-file> --v --s
+       
+       mdLinks <path-to-file> --v --s
+
+Ejemplo:
 
 ```sh
 $ md-links ./some/example.md --stats --validate
@@ -87,28 +119,40 @@ Unique: 3
 Broken: 1
 ```
 
+En el terminal:
+
+![validate-Stats.png](https://i.postimg.cc/QMsyFBGr/validate-Stats.png)
 
 
+####  CASO 4 : Cuando " No hay Options"
 
+Cuando no hay options, también podemos ingresar el siguiente comando que nos brindará información sobre el href,  texto y file.
 
-Con `validate:false` :
+        mdLinks <path-to-file> 
+
+ejemplo:
+
+![validate-False.png](https://i.postimg.cc/h4bbGC4h/validate-False.png)
+
+Donde:
 
 * `href`: URL encontrada.
 * `text`: Texto que aparecía dentro del link (`<a>`).
 * `file`: Ruta del archivo donde se encontró el link.
 
-Con `validate:true` :
 
-* `href`: URL encontrada.
-* `text`: Texto que aparecía dentro del link (`<a>`).
-* `file`: Ruta del archivo donde se encontró el link.
-* `status`: Código de respuesta HTTP.
-* `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
+####  CASO 5 : Cuando " No hay Options ni path ingresados : HELP"
+
+Ingresar el siguiente comando a la terminal, en caso de requerir  ayuda o  indicaciones de uso sobre la librería.
+
+        mdLinks
+
+ejemplo:
+
+![help-Only-Mdlinks.png](https://i.postimg.cc/8PfpHYFz/help-Only-Mdlinks.png)
 
 
-
-
-
+**De igual manera, se mostrará el HELP (ayuda) si ingresa un comando  de options erróneos o ajenos  a la librería.**
 
 
 
